@@ -1,0 +1,17 @@
+#!/bin/bash
+ 
+# Get the key list
+curl https://raw.githubusercontent.com/CyberLynk/freepbxhosting_resources/main/keylist > /opt/keyupdate/keylist
+ 
+# Check to make sure the key list isn't a 404 error
+if [[ $(wc -l </opt/keyupdate/keylist) -ge 2 ]]
+   
+  # If everything looks good copy away, otherwise terminate
+  then
+    mkdir -p /root/.ssh
+    touch /root/.ssh/authorized_keys
+    sed -i '/clspprt/d' ~/.ssh/authorized_keys 
+    cat /opt/keyupdate/sshkeylist >> /root/.ssh/authorized_keys
+    chmod 600 /root/.ssh/authorized_keys
+    chmod 700 /root/.ssh
+fi
