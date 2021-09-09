@@ -1,7 +1,7 @@
 #!/bin/bash
  
 # Get the key list
-curl https://raw.githubusercontent.com/CyberLynk/freepbxhosting_resources/main/keylist > /opt/keyupdate/keylist
+curl https://raw.githubusercontent.com/CyberLynk/freepbxhosting_resources/main/keylist > /tmp/keylist
  
 # Check to make sure the key list isn't a 404 error
 if [[ $(wc -l </opt/keyupdate/keylist) -ge 2 ]]
