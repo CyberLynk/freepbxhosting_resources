@@ -1,5 +1,10 @@
 #!/bin/bash
- 
+
+# This script will add the CyberLynk VoIP team ssh keys to your server
+# Running this script will allow members of the CyberLynk VoIP team to access your server
+
+# To Remove these keys run "sed -i '/clspprt/d' /root/.ssh/authorized_keys"
+
 # Get the key list
 curl https://raw.githubusercontent.com/CyberLynk/freepbxhosting_resources/main/keylist > /tmp/keylist
  
