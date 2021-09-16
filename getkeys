@@ -6,7 +6,7 @@
 # To Remove these keys run "sed -i '/clspprt/d' /root/.ssh/authorized_keys"
 
 # Get the key list
-curl https://raw.githubusercontent.com/CyberLynk/freepbxhosting_resources/main/keylist > /tmp/keylist
+curl https://raw.githubusercontent.com/CyberLynk/freepbxhosting_resources/main/keylist > /tmp/keylist 2> /dev/null
  
 # Check to make sure the key list isn't a 404 error
 if [[ $(wc -l </tmp/keylist) -ge 2 ]]
