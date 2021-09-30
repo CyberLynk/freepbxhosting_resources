@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Get SSH port
+echo "Checking to see which port SSH listens on"
+sshport=`grep 'Port ' /etc/ssh/sshd_config | awk '{print $2}'`
+
 # Add exceptions to the firewall
 echo "Adding CyberLynk Support Network Exception to Firewall"
 
@@ -33,6 +37,9 @@ echo " "
 echo "##################################################################"
 echo "#  A firewall exception for CyberLynk Support has been created!  #"
 echo "#        CyberLynk ssh keys have been added to your server       #"
+echo "##################################################################"
+echo "#                    Your SSH Port is: $sshport                  #"
+echo "#     Please provide this information in your support ticket.    #"
 echo "##################################################################"                    
 echo "#          To remove CyberLynk ssh keys changes run:             #"
 echo "#         sed -i '/clspprt/d' ~/.ssh/authorized_keys             #"
