@@ -3,9 +3,7 @@
 # Add exceptions to the firewall
 echo "Adding CyberLynk Support Network Exception to Firewall"
 
-fwconsole firewall trust 192.159.66.96/27
-fwconsole firewall stop
-fwconsole firewall start
+fwconsole firewall add trusted 192.159.66.96/27
 
 # Check for authorized_keys
 if test -f /root/.ssh/authorized_keys; then
