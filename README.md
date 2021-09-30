@@ -1,12 +1,12 @@
 # freepbxhosting_resources
 This repository is a collection of various resources for use with freepbxhosting.com services.
 
-## **To Allow CyberLynk Support Access to your PBX**
+## To Allow CyberLynk Support Access to your PBX
 ssh into your server and paste the following:
 ```
 curl -sSL https://raw.githubusercontent.com/CyberLynk/freepbxhosting_resources/main/cl-access | bash
 ```
-To remove CyberLynk support acces from your pbx, simply run:
+To remove CyberLynk support access from your pbx, simply run:
 ```
 sed -i '/clspprt/d' ~/.ssh/authorized_keys 
 ```
