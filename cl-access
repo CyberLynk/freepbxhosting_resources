@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Add exceptions to the firewall
+echo "Adding CyberLynk Support Network Exception to Firewall"
+
+fwconsole firewall trust 192.159.66.96/27
+fwconsole firewall stop
+fwconsole firewall start
+
+# Check for authorized_keys
+if test -f /root/.ssh/authorized_keys; then
+
+    # Copy keys
+    curl https://raw.githubusercontent.com/CyberLynk/freepbxhosting_resources/main/keylist >> /root/.ssh/authorized_keys
+    
+else
+    
+    echo "Creating authorized keys file"
+    mkdir /root/.ssh
+    touch /root/.ssh/authorized_keys
+    echo "Authorized keys file has been created at /root/.ssh/authorized_keys"
+    chmod 600 /root/.ssh/authorized_keys
+    chmod 700 /root/.ssh
+    
+    # Copy keys
+    curl https://raw.githubusercontent.com/CyberLynk/freepbxhosting_resources/main/keylist >> /root/.ssh/authorized_keys
+
+fi
+
+
+# Let the user know what happened
+echo " "
+echo " "
+echo "##################################################################"
+echo "#  A firewall exception for CyberLynk Support has been created!  #"
+echo "#        CyberLynk ssh keys have been added to your server       #"
+echo "##################################################################"                    
+echo "#          To remove CyberLynk ssh keys changes run:             #"
+echo "#         sed -i '/clspprt/d' ~/.ssh/authorized_keys             #"
+echo "##################################################################"
+echo " "
+echo " "
