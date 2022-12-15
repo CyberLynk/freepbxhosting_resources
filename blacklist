@@ -1,66 +1,69 @@
-fwconsole firewall add blacklist 102.165.0.0/16
-fwconsole firewall add blacklist 103.145.12.0/23
-fwconsole firewall add blacklist 118.24.0.0/16
-fwconsole firewall add blacklist 122.114.0.0/16
-fwconsole firewall add blacklist 123.206.0.0/16
-fwconsole firewall add blacklist 141.98.10.0/24
-fwconsole firewall add blacklist 142.0.32.0/20
-fwconsole firewall add blacklist 144.217.0.0/16
-fwconsole firewall add blacklist 146.0.32.0/20
-fwconsole firewall add blacklist 147.135.76.0/22
-fwconsole firewall add blacklist 156.96.0.0/16
-fwconsole firewall add blacklist 158.69.0.0/16
-fwconsole firewall add blacklist 163.172.0.0/16
-fwconsole firewall add blacklist 167.114.0.0/16
-fwconsole firewall add blacklist 173.212.224.0/20
-fwconsole firewall add blacklist 173.242.112.0/20
-fwconsole firewall add blacklist 176.67.80.0/23
-fwconsole firewall add blacklist 185.16.38.0/24
-fwconsole firewall add blacklist 185.107.92.0/22
-fwconsole firewall add blacklist 185.147.212.0/22
-fwconsole firewall add blacklist 185.166.84.0/24
-fwconsole firewall add blacklist 185.40.4.0/24
-fwconsole firewall add blacklist 185.53.88.0/24
-fwconsole firewall add blacklist 185.53.91.0/24
-fwconsole firewall add blacklist 188.161.0.0/17
-fwconsole firewall add blacklist 195.154.0.0/16
-fwconsole firewall add blacklist 23.102.130.0/24
-fwconsole firewall add blacklist 23.237.0.0/16
-fwconsole firewall add blacklist 212.129.32.0/19
-fwconsole firewall add blacklist 212.83.128.0/19
-fwconsole firewall add blacklist 216.245.192.0/19
-fwconsole firewall add blacklist 222.184.0.0/13
-fwconsole firewall add blacklist 37.187.0.0/16
-fwconsole firewall add blacklist 37.49.224.0/22
-fwconsole firewall add blacklist 37.49.228.0/22
-fwconsole firewall add blacklist 37.49.231.0/24
-fwconsole firewall add blacklist 45.125.66.0/24
-fwconsole firewall add blacklist 45.143.220.0/24
-fwconsole firewall add blacklist 45.56.128.0/18
-fwconsole firewall add blacklist 46.166.136.0/21
-fwconsole firewall add blacklist 46.166.144.0/21
-fwconsole firewall add blacklist 46.17.40.0/21
-fwconsole firewall add blacklist 46.29.160.0/23
-fwconsole firewall add blacklist 46.29.162.0/24
-fwconsole firewall add blacklist 5.11.40.0/22
-fwconsole firewall add blacklist 5.62.40.0/23
-fwconsole firewall add blacklist 51.15.0.0/18
-fwconsole firewall add blacklist 51.68.0.0/16
-fwconsole firewall add blacklist 62.210.0.0/16
-fwconsole firewall add blacklist 64.32.0.0/19
-fwconsole firewall add blacklist 66.225.195.0/24
-fwconsole firewall add blacklist 67.229.0.0/16
-fwconsole firewall add blacklist 74.222.0.0/19
-fwconsole firewall add blacklist 77.234.46.0/24
-fwconsole firewall add blacklist 77.247.108.0/22
-fwconsole firewall add blacklist 80.94.93.0/24
-fwconsole firewall add blacklist 81.171.0.0/16
-fwconsole firewall add blacklist 89.190.156.0/24
-fwconsole firewall add blacklist 92.114.32.0/24
-fwconsole firewall add blacklist 93.115.26.0/23
-fwconsole firewall add blacklist 94.26.112.0/20
-fwconsole firewall add blacklist 161.97.76.0/23
-fwconsole firewall add blacklist 193.7.220.0/22
-fwconsole firewall add blacklist 193.19.96.0/24
-fwconsole firewall add blacklist 152.89.42.0/24
-fwconsole firewall add blacklist 23.148.145.0/24
+102.165.0.0/16
+103.145.12.0/23
+118.24.0.0/16
+122.114.0.0/16
+123.206.0.0/16
+141.98.10.0/24
+142.0.32.0/20
+144.217.0.0/16
+146.0.32.0/20
+147.135.76.0/22
+156.96.0.0/16
+158.69.0.0/16
+163.172.0.0/16
+167.114.0.0/16
+173.212.224.0/20
+173.242.112.0/20
+176.67.80.0/23
+185.16.38.0/24
+185.107.92.0/22
+185.147.212.0/22
+185.166.84.0/24
+185.40.4.0/24
+185.53.88.0/24
+185.53.91.0/24
+188.161.0.0/17
+195.154.0.0/16
+23.102.130.0/24
+23.237.0.0/16
+212.129.32.0/19
+212.83.128.0/19
+216.245.192.0/19
+222.184.0.0/13
+37.187.0.0/16
+37.49.224.0/22
+37.49.228.0/22
+37.49.231.0/24
+45.125.66.0/24
+45.143.220.0/23
+45.56.128.0/18
+46.166.136.0/21
+46.166.144.0/21
+46.17.40.0/21
+46.29.160.0/23
+46.29.162.0/24
+5.11.40.0/22
+5.62.40.0/23
+51.15.0.0/18
+51.68.0.0/16
+62.210.0.0/16
+64.32.0.0/19
+66.225.195.0/24
+67.229.0.0/16
+74.222.0.0/19
+77.234.46.0/24
+77.247.108.0/22
+80.94.93.0/24
+81.171.0.0/16
+89.190.156.0/24
+92.114.32.0/24
+93.115.26.0/23
+94.26.112.0/20
+161.97.76.0/23
+193.7.220.0/22
+193.19.96.0/24
+152.89.42.0/24
+23.148.145.0/24
+193.46.255.0/24
+178.239.21.0/24
+20.64.0.0/10
