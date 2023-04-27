@@ -11,10 +11,22 @@
  
 #### START SCRIPT ####
 
+# generate random user/password to use for ARI
+
 ariuser=$(tr -dc A-Za-z </dev/urandom | head -c 15)
 aripass=$(tr -dc A-Za-z </dev/urandom | head -c 30)
 
+# add new username/password in the FreePBX config
+
 fwconsole setting FPBX_ARI_USER "$ariuser"
 fwconsole setting FPBX_ARI_PASSWORD "$aripass"
+
+# reload config to apply changes
+
+echo "Reloading the system...."
 fwconsole r
+
+# restart FreePBX so asterisk uses the new credentials
+
+echo "Restarting FreePBX (this may disrupt calls)"
 systemctl restart freepbx.service
