@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#### Script Information ####
+ 
+# Description: Generate random ARI username and password for FreePBX, reload config and restart asterisk
+# Category: FreePBX Maintenance
+# Language: ShellScript
+# Operating System: Linux
+# Architecture: 64-bit
+# Parameters: None
+ 
+#### START SCRIPT ####
+
+ariuser=$(tr -dc A-Za-z </dev/urandom | head -c 15)
+aripass=$(tr -dc A-Za-z </dev/urandom | head -c 30)
+
+fwconsole setting FPBX_ARI_USER "$ariuser"
+fwconsole setting FPBX_ARI_PASSWORD "$aripass"
+fwconsole r
+systemctl restart freepbx.service
