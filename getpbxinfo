@@ -40,6 +40,9 @@ astversion=$(asterisk -rx 'core show version' | awk '{print $2}')
 # get deployment ID
 deploymentid=$(fwconsole sa info | tail -n1 | awk '{print $2}')
 
+# see which channel drivers are enabled
+chandrivsetting=$(fwconsole setting --list | grep ASTSIPDRIVER | awk '{print $4}')
+
 # check if chansip in use
 chansipactive=$(asterisk -rx 'sip show peers' | tail -n1 | awk '{print $1}')
 
@@ -102,6 +105,7 @@ printf "\n"
 echo $separator
 echo "System Status:"
 echo $separator
+echo "Active SIP Channel Drivers: $chandrivsetting"
 echo "Active Legacy SIP Peers (chan_sip): $chansippeers"
 echo "Active PJSIP Contacts (pjsip): $pjsipcontacts"
 echo "Broken/Disabled Modules: $moduleissues"
