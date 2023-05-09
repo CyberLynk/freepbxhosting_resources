@@ -1,0 +1,160 @@
+#!/bin/bash
+
+#### Script Information ####
+ 
+# Description: Get information about a FreePBX server
+# Category: FreePBX Tasks
+# Language: ShellScript
+# Operating System: Linux
+# Architecture: 64-bit
+# Parameters: None
+ 
+#### START SCRIPT ####
+
+### Define script variables ###
+
+astrecdir="/var/spool/asterisk/monitor"
+astvmdir="/var/spool/asterisk/voicemail"
+astbkdir="/var/spool/asterisk/backup"
+astlogdir="/var/log/asterisk"
+syslogdir="/var/log"
+dbfiledir=`grep datadir /etc/my.cnf | cut -d'=' -f2`
+separator="--------------------------------------------------------------------------"
+separator2="========================================================================="
+
+### Fetching Data Part
+### store a bunch of server information into variables
+
+# get hostname
+hosntame=$(hostname)
+
+# get FreePBX firmware version
+fpbxfirmware=$(cat /etc/schmooze/pbx-version)
+
+# get FreePBX framework version
+fpbxguiver=$(fwconsole ma list | grep framework | awk '{print $4}')
+
+# get asterisk version
+astversion=$(asterisk -rx 'core show version' | awk '{print $2}')
+
+# check if chansip in use
+chansipactive=$(asterisk -rx 'sip show peers' | tail -n1 | awk '{print $1}')
+
+# count the chansip peers
+if [ $chansipactive != 0 ] ; then
+  chansippeers=$(asterisk -rx 'sip show peers' | tail -n1 | awk '{print $5}')
+else
+  chansippeers="none"
+fi
+
+# check if pjsip disabled
+pjsipdisabled=$(asterisk -rx 'pjsip show transports' | grep -c "No such command")
+
+# count the active pjsip contacts
+if [ $pjsipdisabled == 1 ] ; then
+  pjsipcontacts="disabled"
+else
+  pjsipcontacts=$(asterisk -rx 'pjsip show contacts' | grep "Objects found" | awk '{print $3}')
+fi
+
+# Get free disk space on root filesystem
+diskused=`df -h / | sed -n 2p | awk '{size+=$2;percent+=$5;} {print percent"% of",size"GB used"}'`
+
+# Get size of recordings / voicemails / logs
+varlogsize=`du -sch $syslogdir | grep total | awk '{print $1}'`
+astrecsize=`du -sch $astrecdir | grep total | awk '{print $1}'`
+astbksize=`du -sch $astbkdir | grep total | awk '{print $1}'`
+astvmsize=`du -sch $astvmdir | grep total | awk '{print $1}'`
+
+# Get size of asterisk & cdr databases
+astdbsize=`du -h $dbfiledir | grep ast | sort -k2`
+
+# Get number of cdr records for each year
+cdrdbcounts=`mysql -e 'SELECT Year(calldate) as 'Year', Count(uniqueid) as 'Records' FROM cdr GROUP BY Year(calldate) ORDER BY Year(calldate) ASC;' asteriskcdrdb`
+
+# Get recording folders exceeding 100mb
+bigrecdirs=`du -h --max-depth=2 $astrecdir | grep '[0-999]G\|[0-9][0-9][0-9]M' | sort -k2`
+
+# Get log files exceeding 100mb
+largelogs=`find $syslogdir -type f -size +50M -exec ls -lh {} \; | awk '{ print $NF ": " $5 }'`
+
+
+### Output the report: ###
+
+# report header
+echo $separator2
+echo "Disk analysis for " `hostname` 
+echo "Prepared on " `date`
+echo "FreePBX Firmware " $fpbxfirmware
+echo "FreePBX GUI Version " $fpbxguiver
+echo "Asterisk Version " $astversion
+echo $separator2
+printf "\n"
+printf "\n"
+
+# general system info
+echo $separator
+echo "General System Info:"
+echo $separator
+echo "Active Legacy SIP Peers (chan_sip): $chansippeers"
+echo "Active PJSIP Contacts (pjsip): $pjsipcontacts"
+printf "\n"
+
+# disk space
+echo $separator
+echo "Primary Disk Usage:"
+echo $separator
+if [ ! -z "$diskused" ] ; then
+	echo "$diskused"
+	echo "Voicemails: " $astvmsize
+	echo "Call Recordings: " $astrecsize
+   	echo "Backups: " $astbksize
+	echo "Log Files: " $varlogsize
+else
+	echo "No filesystems found, that seems weird..."
+fi
+printf "\n"
+
+# asterisk database sizes
+echo $separator
+echo "Asterisk Database Sizes: (these cannot be deleted)"
+echo $separator
+if [ ! -z "$astdbsize" ] ; then
+	echo "$astdbsize"
+else
+	echo "No databases found, that seems weird..."
+fi
+printf "\n"
+
+# cdr records by year
+echo $separator
+echo "Call Detail Recordings:"
+echo $separator
+if [ ! -z "$cdrdbcounts" ] ; then
+	echo "$cdrdbcounts"
+else
+	echo "No cdr logs, that seems weird..."
+fi
+printf "\n"
+
+# large recording directories
+echo $separator
+echo "Call Recording Folders Over 100M:"
+echo $separator
+if [ ! -z "$bigrecdirs" ] ; then
+	echo "$bigrecdirs"
+else
+	echo "No large recording directories."
+fi
+printf "\n"
+
+# large log files
+echo $separator
+echo "Log files over 50M:"
+echo $separator
+if [ ! -z "$largelogs" ] ; then
+echo "$largelogs"
+else
+	echo "No large log files."
+fi
+printf "\n"
