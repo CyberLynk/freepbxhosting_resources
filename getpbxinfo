@@ -92,7 +92,7 @@ largelogs=`find $syslogdir -type f -size +50M -exec ls -lh {} \; | awk '{ print 
 
 # report header
 echo $separator2
-echo "Disk analysis for " `hostname` 
+echo "System analysis for " `hostname` 
 echo "Prepared on " `date`
 echo "FreePBX Firmware " $fpbxfirmware
 echo "FreePBX GUI Version " $fpbxguiver
