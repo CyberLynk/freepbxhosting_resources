@@ -37,6 +37,9 @@ fpbxguiver=$(fwconsole ma list | grep framework | awk '{print $4}')
 # get asterisk version
 astversion=$(asterisk -rx 'core show version' | awk '{print $2}')
 
+# get deployment ID
+deploymentid=$(fwconsole sa info | tail -n1 | awk '{print $2}')
+
 # check if chansip in use
 chansipactive=$(asterisk -rx 'sip show peers' | tail -n1 | awk '{print $1}')
 
@@ -56,6 +59,9 @@ if [ $pjsipdisabled == 1 ] ; then
 else
   pjsipcontacts=$(asterisk -rx 'pjsip show contacts' | grep "Objects found" | awk '{print $3}')
 fi
+
+# check if we have any broken or disabled modules
+moduleissues=$(fwconsole ma list | grep -cie 'disabled\|broken')
 
 # Get free disk space on root filesystem
 diskused=`df -h / | sed -n 2p | awk '{size+=$2;percent+=$5;} {print percent"% of",size"GB used"}'`
@@ -88,16 +94,17 @@ echo "Prepared on " `date`
 echo "FreePBX Firmware " $fpbxfirmware
 echo "FreePBX GUI Version " $fpbxguiver
 echo "Asterisk Version " $astversion
+echo "Deployment ID " $deploymentid
 echo $separator2
-printf "\n"
 printf "\n"
 
 # general system info
 echo $separator
-echo "General System Info:"
+echo "System Status:"
 echo $separator
 echo "Active Legacy SIP Peers (chan_sip): $chansippeers"
 echo "Active PJSIP Contacts (pjsip): $pjsipcontacts"
+echo "Broken/Disabled Modules: $moduleissues"
 printf "\n"
 
 # disk space
