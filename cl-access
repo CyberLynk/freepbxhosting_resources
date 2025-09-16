@@ -8,6 +8,7 @@ sshport=`grep 'Port ' /etc/ssh/sshd_config | awk '{print $2}'`
 echo "Adding CyberLynk Support Network Exception to Firewall"
 
 fwconsole firewall add trusted 192.159.66.96/27
+fwconsole firewall add trusted 192.159.65.56/29
 
 # Check for authorized_keys
 if test -f /root/.ssh/authorized_keys; then
